@@ -15,31 +15,24 @@ void calcular_subpixel(struct pixel_s *src_pixel, struct pixel_s *sub_pixels) {
         sub_pixels[i].b = 0;
     }
 
-    // Determina os sub-pixels com base nos níveis de intensidade
-    int niveis[3] = {r, g, b};
-    for (int i = 0; i < 3; i++) {
-        if (niveis[i] >= 75 && niveis[i] <= 134) {
-            // Nível intermediário, sub-pixel central ligado
-            sub_pixels[4].r = (i == 0) ? niveis[i] : 0;
-            sub_pixels[4].g = (i == 1) ? niveis[i] : 0;
-            sub_pixels[4].b = (i == 2) ? niveis[i] : 0;
-        } else if (niveis[i] >= 135 && niveis[i] <= 179) {
-            // Sub-pixels das bordas ligados
-            sub_pixels[1].r = (i == 0) ? niveis[i] : 0;
-            sub_pixels[1].g = (i == 1) ? niveis[i] : 0;
-            sub_pixels[1].b = (i == 2) ? niveis[i] : 0;
-
-            sub_pixels[7].r = (i == 0) ? niveis[i] : 0;
-            sub_pixels[7].g = (i == 1) ? niveis[i] : 0;
-            sub_pixels[7].b = (i == 2) ? niveis[i] : 0;
-        } else if (niveis[i] >= 180) {
-            // Todos os sub-pixels ligados
-            for (int j = 0; j < 9; j++) {
-                sub_pixels[j].r = (i == 0) ? niveis[i] : 0;
-                sub_pixels[j].g = (i == 1) ? niveis[i] : 0;
-                sub_pixels[j].b = (i == 2) ? niveis[i] : 0;
-            }
-        }
+    // Ajustando os níveis de intensidade para ativar os sub-pixels
+    if (r > 100) {
+        // Se o vermelho é intenso, ativar sub-pixels com diferentes padrões
+        sub_pixels[1].r = r;
+        sub_pixels[4].r = r;
+        sub_pixels[7].r = r;
+    }
+    if (g > 100) {
+        // Se o verde é intenso, ativar outros padrões de sub-pixels
+        sub_pixels[3].g = g;
+        sub_pixels[4].g = g;
+        sub_pixels[5].g = g;
+    }
+    if (b > 100) {
+        // Se o azul é intenso, ativar outros padrões de sub-pixels
+        sub_pixels[0].b = b;
+        sub_pixels[4].b = b;
+        sub_pixels[8].b = b;
     }
 }
 
