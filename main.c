@@ -8,6 +8,14 @@ void calcular_subpixel(struct pixel_s *src_pixel, struct pixel_s *sub_pixels) {
     unsigned char g = src_pixel->g;
     unsigned char b = src_pixel->b;
 
+    // Ajuste de brilho (fator de multiplicação, pode ser ajustado)
+    float brilho_fator = 1.5;
+
+    // Aplica o fator de brilho, limitando o valor máximo a 255
+    r = (unsigned char)(r * brilho_fator > 255 ? 255 : r * brilho_fator);
+    g = (unsigned char)(g * brilho_fator > 255 ? 255 : g * brilho_fator);
+    b = (unsigned char)(b * brilho_fator > 255 ? 255 : b * brilho_fator);
+
     // Inicializa todos os sub-pixels como preto
     for (int i = 0; i < 9; i++) {
         sub_pixels[i].r = 0;
