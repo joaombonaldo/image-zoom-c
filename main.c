@@ -8,6 +8,8 @@ void calcular_subpixel(struct pixel_s *src_pixel, struct pixel_s *sub_pixels) {
     unsigned char g = src_pixel->g;
     unsigned char b = src_pixel->b;
 
+    //-----------início função para aumentar o brilho-----------
+    
     // Ajuste de brilho (fator de multiplicação, pode ser ajustado)
     float brilho_fator = 1.5;
 
@@ -15,6 +17,8 @@ void calcular_subpixel(struct pixel_s *src_pixel, struct pixel_s *sub_pixels) {
     r = (unsigned char)(r * brilho_fator > 255 ? 255 : r * brilho_fator);
     g = (unsigned char)(g * brilho_fator > 255 ? 255 : g * brilho_fator);
     b = (unsigned char)(b * brilho_fator > 255 ? 255 : b * brilho_fator);
+    
+    //---------------Fim função para aumentar o brilho-------------
 
     // Inicializa todos os sub-pixels como preto
     for (int i = 0; i < 9; i++) {
