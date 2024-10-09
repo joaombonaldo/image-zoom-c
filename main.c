@@ -13,39 +13,39 @@ void calcular_subpixel(struct pixel_s *src_pixel, struct pixel_s *sub_pixels) {
     // Ajuste de brilho (fator de multiplicação, pode ser ajustado)
     float brilho_fator = 1.5;
 
-    // Aplica o fator de brilho, limitando o valor máximo a 255
-    r = (unsigned char)(r * brilho_fator > 255 ? 255 : r * brilho_fator);
-    g = (unsigned char)(g * brilho_fator > 255 ? 255 : g * brilho_fator);
-    b = (unsigned char)(b * brilho_fator > 255 ? 255 : b * brilho_fator);
+    // Aplica o fator de brilho, limitando o valor máximo a 255 para a componente vermelha
+    if (r * brilho_fator > 255) {
+        r = 255;
+    } else {
+        r = (unsigned char)(r * brilho_fator);
+    }
+
+    // Aplica o fator de brilho, limitando o valor máximo a 255 para a componente verde
+    if (g * brilho_fator > 255) {
+        g = 255;
+    } else {
+        g = (unsigned char)(g * brilho_fator);
+    }
+
+    // Aplica o fator de brilho, limitando o valor máximo a 255 para a componente azul
+    if (b * brilho_fator > 255) {
+        b = 255;
+    } else {
+        b = (unsigned char)(b * brilho_fator);
+    }
+
     
     //---------------Fim função para aumentar o brilho-------------
 
-    // Inicializa todos os sub-pixels como preto
     for (int i = 0; i < 9; i++) {
         sub_pixels[i].r = 0;
         sub_pixels[i].g = 0;
         sub_pixels[i].b = 0;
     }
-
-    // Ajustando os níveis de intensidade para ativar os sub-pixels
-    if (r > 100) {
-        // Se o vermelho é intenso, ativar sub-pixels com diferentes padrões
-        sub_pixels[1].r = r;
-        sub_pixels[4].r = r;
-        sub_pixels[7].r = r;
-    }
-    if (g > 100) {
-        // Se o verde é intenso, ativar outros padrões de sub-pixels
-        sub_pixels[3].g = g;
-        sub_pixels[4].g = g;
-        sub_pixels[5].g = g;
-    }
-    if (b > 100) {
-        // Se o azul é intenso, ativar outros padrões de sub-pixels
-        sub_pixels[0].b = b;
-        sub_pixels[4].b = b;
-        sub_pixels[8].b = b;
-    }
+    // Atribuindo cores aos sub-pixels conforme o padrão RGB Stripe
+    sub_pixels[0].r = sub_pixels[3].r = sub_pixels[6].r = src_pixel->r;
+    sub_pixels[1].g = sub_pixels[4].g = sub_pixels[7].g = src_pixel->g;
+    sub_pixels[2].b = sub_pixels[5].b = sub_pixels[8].b = src_pixel->b;
 }
 
 // Função para aplicar o zoom e o processamento de sub-pixel
