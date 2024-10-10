@@ -1,4 +1,5 @@
 # image-zoom-c
+João Miguel Bonaldo e Matheus Bueno
 
 Como compilar:
     - gcc -o main main.c lib_ppm.c
